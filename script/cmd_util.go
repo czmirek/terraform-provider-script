@@ -1,7 +1,6 @@
 package script
 
 import (
-	"encoding/json"
 	"log"
 	"os/exec"
 
@@ -30,8 +29,9 @@ func runScript(d *schema.ResourceData, getOutput bool, op string) (string, diag.
 	cmd.Dir = workingDir
 
 	if getOutput {
-		resultJSON, err := cmd.Output()
-		log.Printf("[TRACE] JSON output: %+v\r\n", string(resultJSON))
+		resultBytes, err := cmd.Output()
+		resultJSON := string(resultBytes)
+		log.Printf("[TRACE] JSON output: %+v\r\n", resultJSON)
 		if err != nil {
 			if exitErr, ok := err.(*exec.ExitError); ok {
 				if exitErr.Stderr != nil && len(exitErr.Stderr) > 0 {
@@ -42,12 +42,7 @@ func runScript(d *schema.ResourceData, getOutput bool, op string) (string, diag.
 				return "", diag.Errorf("failed to execute %q: %s", program[0], err)
 			}
 		}
-		var result string
-		err = json.Unmarshal(resultJSON, &result)
-		if err != nil {
-			return "", diag.Errorf("command %q produced invalid JSON: %s", program[0], err)
-		}
-		return result, diags
+		return resultJSON, diags
 	}
 
 	if err := cmd.Run(); err != nil {

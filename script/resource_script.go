@@ -2,10 +2,9 @@ package script
 
 import (
 	"context"
+	"encoding/json"
 	"log"
-	"time"
 
-	"github.com/hashicorp/go-uuid"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
@@ -57,11 +56,13 @@ func resourceScript() *schema.Resource {
 	}
 }
 
+type scriptModel struct {
+	ID       string      `json:"id"`
+	Resource interface{} `json:"resource"`
+}
+
 func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Println("[INFO] resourceOrderRead HIT")
-
 	result, diagReturn := runScript(d, true, "read")
-
 	if diagReturn.HasError() {
 		return diagReturn
 	}
@@ -74,34 +75,42 @@ func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{
 }
 
 func resourceOrderUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Println("[INFO] resourceOrderUpdate HIT")
+	result, diagReturn := runScript(d, true, "read")
+	if diagReturn.HasError() {
+		return diagReturn
+	}
 
-	if d.HasChange("result") {
+	currentResult := d.Get("result").(string)
+	log.Printf("[INFO] READ RESULT %v\r\n", result)
+	log.Printf("[INFO] CURRENT RESULT %v\r\n", currentResult)
+	log.Printf("[INFO] RESULT EQUAL %v\r\n", result == currentResult)
+	if result != currentResult {
 		_, diagReturn := runScript(d, false, "update")
 		if diagReturn.HasError() {
 			return diagReturn
 		}
-		d.Set("last_updated", time.Now().Format(time.RFC850))
 	}
 	return resourceOrderRead(ctx, d, m)
 }
+
 func resourceOrderCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	_, diagReturn := runScript(d, false, "create")
+	var diags diag.Diagnostics
+
+	result, diagReturn := runScript(d, true, "create")
 	if diagReturn.HasError() {
 		return diagReturn
 	}
-	uuid, err := uuid.GenerateUUID()
+	model := &scriptModel{}
+	err := json.Unmarshal([]byte(result), model)
 	if err != nil {
 		return diag.FromErr(err)
 	}
-	d.SetId(uuid)
-	resourceOrderRead(ctx, d, m)
-	return diag.Diagnostics{}
+	d.SetId(model.ID)
+	d.Set("result", result)
+	return diags
 }
 
 func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Println("[INFO] resourceOrderDelete HIT")
-
 	_, diagReturn := runScript(d, false, "delete")
 	if diagReturn.HasError() {
 		return diagReturn
