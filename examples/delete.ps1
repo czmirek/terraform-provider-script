@@ -1,1 +1,1 @@
-Write-Host "DELETE"
+Add-Content "output.log" -Value "$(Get-Date) DELETE"

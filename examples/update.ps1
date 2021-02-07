@@ -1,1 +1,1 @@
-Write-Host "UPDATE"
+Add-Content "output.log" -Value "$(Get-Date) UPDATE"

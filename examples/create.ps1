@@ -1,1 +1,1 @@
-Write-Host "CREATE"
+Add-Content "output.log" -Value "$(Get-Date) CREATE"

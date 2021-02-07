@@ -54,7 +54,7 @@ func resourceScript() *schema.Resource {
 }
 
 func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Printf("[INFO] resourceOrderRead HIT\n")
+	log.Println("[INFO] resourceOrderRead HIT")
 
 	result, diagReturn := runScript(d, true, "read")
 
@@ -70,7 +70,7 @@ func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{
 }
 
 func resourceOrderUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Printf("[INFO] resourceOrderUpdate HIT\n")
+	log.Println("[INFO] resourceOrderUpdate HIT")
 
 	if d.HasChange("result") {
 		_, diagReturn := runScript(d, false, "update")
@@ -82,8 +82,6 @@ func resourceOrderUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 	return resourceOrderRead(ctx, d, m)
 }
 func resourceOrderCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Printf("[INFO] resourceOrderCreate HIT\n")
-
 	_, diagReturn := runScript(d, false, "create")
 	if diagReturn.HasError() {
 		return diagReturn
@@ -98,7 +96,7 @@ func resourceOrderCreate(ctx context.Context, d *schema.ResourceData, m interfac
 }
 
 func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	log.Printf("[INFO] resourceOrderDelete HIT\n")
+	log.Println("[INFO] resourceOrderDelete HIT")
 
 	_, diagReturn := runScript(d, false, "delete")
 	if diagReturn.HasError() {

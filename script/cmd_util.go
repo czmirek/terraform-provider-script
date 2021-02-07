@@ -11,7 +11,6 @@ import (
 
 func runScript(d *schema.ResourceData, getOutput bool, op string) (map[string]string, diag.Diagnostics) {
 	var diags diag.Diagnostics
-	log.Printf("[INFO] RUN SCRIPT")
 
 	opList := d.Get(op).([]interface{})
 	workingDir := d.Get("working_dir").(string)
@@ -28,9 +27,6 @@ func runScript(d *schema.ResourceData, getOutput bool, op string) (map[string]st
 
 	cmd := exec.Command(program[0], program[1:]...)
 	cmd.Dir = workingDir
-	if err := cmd.Run(); err != nil {
-		return nil, diag.FromErr(err)
-	}
 
 	if getOutput {
 		resultJSON, err := cmd.Output()
