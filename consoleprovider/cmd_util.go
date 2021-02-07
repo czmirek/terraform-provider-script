@@ -10,7 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func runConsole(d *schema.ResourceData, op string) (map[string]string, diag.Diagnostics) {
+func runConsoleGetOutput(d *schema.ResourceData, op string) (map[string]string, diag.Diagnostics) {
 	var diags diag.Diagnostics
 
 	opList := d.Get(op).([]interface{})

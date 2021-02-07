@@ -1,5 +1,5 @@
-//original source: https://github.com/hashicorp/terraform-provider-external/blob/2b1150d04771816bae85ca0d162f9c8e12c6c52a/internal/provider/util.go#L12
 package consoleprovider
+//original source: https://github.com/hashicorp/terraform-provider-external/blob/2b1150d04771816bae85ca0d162f9c8e12c6c52a/internal/provider/util.go#L12
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package consoleprovider
+package main
 
 import (
 	consoleprovider "consoleprovider/consoleprovider"
