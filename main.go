@@ -1,13 +1,13 @@
 package main
 
 import (
-	consoleprovider "consoleprovider/consoleprovider"
+	"github.com/czmirek/terraform-provider-script/script"
 
-	"github.com/hashicorp/terraform-plugin-sdk/plugin"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
 )
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		ProviderFunc: consoleprovider.Provider,
+		ProviderFunc: script.Provider,
 	})
 }

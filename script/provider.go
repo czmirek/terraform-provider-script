@@ -1,7 +1,7 @@
-package consoleprovider
+package script
 
 import (
-	"github.com/hashicorp/terraform-plugin-sdk/helper/schema"
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 // Provider returns a schema.Provider for my provider
@@ -10,7 +10,7 @@ func Provider() *schema.Provider {
 		Schema:         map[string]*schema.Schema{},
 		DataSourcesMap: map[string]*schema.Resource{},
 		ResourcesMap: map[string]*schema.Resource{
-			"console": resourceConsole(),
+			"script": resourceScript(),
 		},
 	}
 
