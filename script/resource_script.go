@@ -49,6 +49,10 @@ func resourceScript() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 			},
+			"result": {
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 		},
 	}
 }
