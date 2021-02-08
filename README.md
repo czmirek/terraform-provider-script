@@ -7,8 +7,8 @@ scripts.
 
 *Also please note that this should be used ONLY if there is no official provider for the thing you are trying to provide
 with this resource (or if it doesn't work very well yet).*
-
-```go
+g
+```hcl
 resource "script" "new" {
     create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
     read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
