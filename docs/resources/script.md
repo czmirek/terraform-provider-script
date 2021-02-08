@@ -15,7 +15,7 @@ description: |-
 
 # script (Resource)
 
-This provider provides a `script` resource which delegates the resource cycle completely to scripts that you provide.
+`script` resource delegates the terraform resource cycle completely to scripts that you provide.
 
 - Your target state is defined by a single string, it can be anything but I recommend to use a serialized JSON.
 - The provider excepts your scripts to work with a simple JSON structure:
@@ -55,8 +55,5 @@ Example: `update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]`
 ### Read-Only
 
 - **resource** (String) The resource string itself. This is whatever you provide in the `target_state` script.
-It can be any string but I recommend to save it as serialized JSON because terraform can detect that
-and show individual property/value changes in your plan, also you can access individual properties by
-the `jsondecode` function
 
 

@@ -6,7 +6,7 @@
 #>
 
 $target_state = [ordered]@{
-    "propertyA" = "some text BLABLABLA";
+    "propertyA" = "some text ASDF";
     "propertyB" = 5887548;
     "nested" = @{
         "something" = $TRUE
