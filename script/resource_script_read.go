@@ -14,7 +14,7 @@ func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{
 		WorkingDir: d.Get("working_dir").(string),
 		GetOutput:  true,
 		ParamTransform: func(value *string) {
-			*value = strings.Replace(*value, "{{ID}}", d.Id(), -1)
+			*value = strings.Replace(*value, "##ID##", d.Id(), -1)
 		},
 	})
 	if diagReturn.HasError() {

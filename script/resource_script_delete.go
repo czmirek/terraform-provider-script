@@ -14,7 +14,7 @@ func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interfac
 		WorkingDir: d.Get("working_dir").(string),
 		GetOutput:  false,
 		ParamTransform: func(value *string) {
-			*value = strings.Replace(*value, "{{ID}}", d.Id(), -1)
+			*value = strings.Replace(*value, "##ID##", d.Id(), -1)
 		},
 	})
 	if diagReturn.HasError() {
