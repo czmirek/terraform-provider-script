@@ -21,6 +21,17 @@ resource "script" "new" {
 
 `script` resource delegates the terraform resource cycle completely to scripts that you provide.
 
+```hcl
+resource "script" "new" {
+    create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
+    read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
+    update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]
+    delete = ["pwsh", "${path.root}/delete.ps1", "##ID##"]
+    target_state = ["pwsh", "${path.root}/target-state.ps1", "-NoLogo"]
+    working_dir = path.root
+}
+```
+
 - Your target state is defined by a single string, it can be anything but I recommend to use a serialized JSON.
 - The provider excepts your scripts to work with a simple JSON structure:
 
