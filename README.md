@@ -1,13 +1,12 @@
 # Terraform script provider
 
-This provider has a nice script resource which delegates the resource cycle completely to your local CRUD
-scripts that you provide in a more elegant way than by hacking through `local-exec`, `data "external"`, `when=destroy` or `triggers`
+This provider contains a single `"script"` resource which delegates the resource cycle completely to your local CRUD
+scripts.
 
-Please note that this should be used ONLY if there is no official provider for the thing you are trying to provide
-with this resource (or if it doesn't work very well yet).
+**THIS IS v0.1! USE ON YOUR OWN RISK!**
 
-**THIS IS v0.1, NOT YET TESTED VERY THOROUGHLY!** Also, this is my first `go` project. I'll be very happy if you contribute
-or just comment about my code especially if you are experienced in `go`.
+*Also please note that this should be used ONLY if there is no official provider for the thing you are trying to provide
+with this resource (or if it doesn't work very well yet).*
 
 ```go
 resource "script" "new" {
