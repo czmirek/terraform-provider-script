@@ -5,15 +5,21 @@ import (
 	"os/exec"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
-	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-func runScript(d *schema.ResourceData, getOutput bool, op string) (string, diag.Diagnostics) {
-	var diags diag.Diagnostics
-	log.Printf("[INFO] Running script %v\r\n", op)
+type scriptOptions struct {
+	OpList         []interface{}
+	WorkingDir     string
+	GetOutput      bool
+	ParamTransform func(*string)
+}
 
-	opList := d.Get(op).([]interface{})
-	workingDir := d.Get("working_dir").(string)
+func runScript(o *scriptOptions) (string, diag.Diagnostics) {
+	var diags diag.Diagnostics
+	l("RUNNING SCRIPT")
+
+	opList := o.OpList
+	workingDir := o.WorkingDir
 
 	if err := validateProgramAttr(opList); err != nil {
 		return "", diag.FromErr(err)
@@ -23,12 +29,14 @@ func runScript(d *schema.ResourceData, getOutput bool, op string) (string, diag.
 
 	for i, vI := range opList {
 		program[i] = vI.(string)
+		o.ParamTransform(&program[i])
 	}
 
 	cmd := exec.Command(program[0], program[1:]...)
 	cmd.Dir = workingDir
+	lf(cmd)
 
-	if getOutput {
+	if o.GetOutput {
 		resultBytes, err := cmd.Output()
 		resultJSON := string(resultBytes)
 		log.Printf("[TRACE] JSON output: %+v\r\n", resultJSON)

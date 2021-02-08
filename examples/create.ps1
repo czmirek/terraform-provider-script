@@ -1,9 +1,9 @@
-Add-Content "output.log" -Value "$(Get-Date) CREATE"
+$target_state = ./target-state.ps1
+$id = "Unique_ID_generated_during_creation"
 $obj = @{
-    "id" = "Unique_resource_identifier"
-    "resource" = @{
-        "whatever" = "asdf"
-    };
+    "id" = $id
+    "resource" = $target_state
 }
-$json = $obj | ConvertTo-Json
-Write-Host $json
+$obj_json = $obj | ConvertTo-Json
+$obj_json | Out-File "$($id).json"
+Write-Host $obj_json -NoNewline

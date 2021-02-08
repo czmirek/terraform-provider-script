@@ -3,7 +3,9 @@ package script
 //original source: https://github.com/hashicorp/terraform-provider-external/blob/2b1150d04771816bae85ca0d162f9c8e12c6c52a/internal/provider/util.go#L12
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 )
 
@@ -34,4 +36,15 @@ func validateProgramAttr(v interface{}) error {
 	}
 
 	return nil
+}
+func l(msg string) {
+	log.Print("[TRACE] " + msg + "\r\n")
+}
+func lf(v ...interface{}) {
+	log.Printf("[TRACE] %v\r\n", v)
+}
+func parseOutput(output string) *scriptModel {
+	model := &scriptModel{}
+	json.Unmarshal([]byte(output), model)
+	return model
 }

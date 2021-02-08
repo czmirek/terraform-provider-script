@@ -1,1 +1,4 @@
-Add-Content "output.log" -Value "$(Get-Date) DELETE"
+param(
+    [string] $id
+)
+Remove-Item "$($id).json"
