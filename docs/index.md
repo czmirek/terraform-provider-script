@@ -11,7 +11,7 @@ description: |-
 This provider provides a script resource which delegates the resource cycle completely to CRUD scripts that you provide.
 
 ```hcl
-resource "script" "new" {
+resource "script" "my_resource" {
     create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
     read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
     update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]
