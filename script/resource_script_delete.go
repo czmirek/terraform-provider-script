@@ -11,8 +11,8 @@ import (
 func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	_, diagReturn := runScript(&scriptOptions{
 		OpList:     d.Get("delete").([]interface{}),
-		GetOutput:  false,
 		WorkingDir: d.Get("working_dir").(string),
+		GetOutput:  false,
 		ParamTransform: func(value *string) {
 			*value = strings.Replace(*value, "{{ID}}", d.Id(), -1)
 		},

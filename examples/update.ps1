@@ -2,7 +2,7 @@ param(
     [string] $id,
     [string] $resource
 )
-$obj = @{
+$obj = [ordered]@{
     "id" = $id
     "resource" = $resource
 }

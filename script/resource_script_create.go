@@ -12,8 +12,8 @@ func resourceOrderCreate(ctx context.Context, d *schema.ResourceData, m interfac
 
 	createOutput, diagReturn := runScript(&scriptOptions{
 		OpList:         d.Get("create").([]interface{}),
-		GetOutput:      true,
 		WorkingDir:     d.Get("working_dir").(string),
+		GetOutput:      true,
 		ParamTransform: func(value *string) {},
 	})
 	if diagReturn.HasError() {

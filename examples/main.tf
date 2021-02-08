@@ -6,6 +6,7 @@ terraform {
     }
   }
 }
+
 resource "script" "new" {
   create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
   read = ["pwsh", "${path.root}/read.ps1", "{{ID}}", "-NoLogo"]

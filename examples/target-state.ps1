@@ -1,9 +1,9 @@
-$target_state_json = @{
-    "propertyA" = "some text";
+
+$target_state = [ordered]@{
+    "propertyA" = "some text BLABLABLA";
     "propertyB" = 5887548;
     "nested" = @{
-        "something" = true
+        "something" = $TRUE
     }
-
 }
-Write-Host ($target_state_json | ConvertTo-Json) -NoNewline
+$target_state | ConvertTo-Json -Compress

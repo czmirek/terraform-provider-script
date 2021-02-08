@@ -1,4 +1,13 @@
 param(
     [string] $id
 )
-Write-Host (Get-Content "$($id).json" -Raw) -NoNewline
+
+$file = "$($id).json"
+if(Test-Path $file) {
+    Get-Content "$($id).json" -Raw
+} else {
+    [ordered]@{
+        "id" = "";
+        "resource" = "";
+    }
+}
