@@ -6,8 +6,8 @@ scripts that you provide in a more elegant way than by hacking through `local-ex
 Please note that this should be used ONLY if there is no official provider for the thing you are trying to provide
 with this resource (or if it doesn't work very well yet).
 
-**THIS IS v0.1, NOT YET TESTED VERY THOROUGHLY!** Also, this is my first `go` project. I'll be very happy if you
-contribute or create an issue for any bug you find.
+**THIS IS v0.1, NOT YET TESTED VERY THOROUGHLY!** Also, this is my first `go` project. I'll be very happy if you contribute
+or just comment about my code especially if you are experienced in `go`.
 
 ```go
 resource "script" "new" {
