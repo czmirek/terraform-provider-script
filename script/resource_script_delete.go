@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+//runs the delete script
 func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	_, diagReturn := runScript(&scriptOptions{
 		OpList:     d.Get("delete").([]interface{}),

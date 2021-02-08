@@ -14,9 +14,10 @@ type scriptOptions struct {
 	ParamTransform func(*string)
 }
 
+// Most of the content of this function
+// comes from here: https://github.com/hashicorp/terraform-provider-external/blob/main/internal/provider/data_source.go
 func runScript(o *scriptOptions) (string, diag.Diagnostics) {
 	var diags diag.Diagnostics
-	l("RUNNING SCRIPT")
 
 	opList := o.OpList
 	workingDir := o.WorkingDir
@@ -34,7 +35,6 @@ func runScript(o *scriptOptions) (string, diag.Diagnostics) {
 
 	cmd := exec.Command(program[0], program[1:]...)
 	cmd.Dir = workingDir
-	lf(cmd)
 
 	if o.GetOutput {
 		resultBytes, err := cmd.Output()

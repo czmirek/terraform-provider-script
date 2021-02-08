@@ -8,6 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
+// runs the read script and returns the resource string
 func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	readOutput, diagReturn := runScript(&scriptOptions{
 		OpList:     d.Get("read").([]interface{}),
@@ -22,6 +23,10 @@ func resourceOrderRead(ctx context.Context, d *schema.ResourceData, m interface{
 	}
 
 	model := parseOutput(readOutput)
+
+	// if the ID is empty string then it
+	// signals that the external resource has been deleted
+	// outside of terraform and needs to be recreated
 	if len(model.ID) < 1 {
 		d.SetId("")
 	}
