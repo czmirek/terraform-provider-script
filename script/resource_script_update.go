@@ -10,6 +10,7 @@ import (
 
 // runs the delete script
 func resourceOrderUpdate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	l("SCRIPT: Running update script")
 	resource := d.Get("resource").(string)
 	_, diagReturn := runScript(&scriptOptions{
 		OpList:     d.Get("update").([]interface{}),
@@ -17,7 +18,7 @@ func resourceOrderUpdate(ctx context.Context, d *schema.ResourceData, m interfac
 		GetOutput:  false,
 		ParamTransform: func(value *string) {
 			*value = strings.Replace(*value, "##ID##", d.Id(), -1)
-			*value = strings.Replace(*value, "##RES##", resource, -1)
+			*value = strings.Replace(*value, "##CS##", resource, -1)
 		},
 	})
 	if diagReturn.HasError() {

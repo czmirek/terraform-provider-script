@@ -44,8 +44,8 @@ func resourceScript() *schema.Resource {
 			"update": {
 				Type: schema.TypeList,
 				Description: "Command to run an update script.\n" +
-					"Placeholder `##ID##` is replaced with the resource id, `##RES##` by string resource itself.\n" +
-					"Example: `update = [\"pwsh\", \"${path.root}/update.ps1\", \"##ID##\", \"##RES##\"]`\n",
+					"Placeholder `##ID##` is replaced with the resource id, `##CS##` by string resource itself.\n" +
+					"Example: `update = [\"pwsh\", \"${path.root}/update.ps1\", \"##ID##\", \"##CS##\"]`\n",
 				Required: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,

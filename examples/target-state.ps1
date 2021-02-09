@@ -1,3 +1,6 @@
+params(
+    [string] $current_state = $null
+)
 <#
     This script outputs the target state which is just a single string.
 

@@ -10,6 +10,7 @@ import (
 
 //runs the delete script
 func resourceOrderDelete(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
+	l("SCRIPT: Running delete script")
 	_, diagReturn := runScript(&scriptOptions{
 		OpList:     d.Get("delete").([]interface{}),
 		WorkingDir: d.Get("working_dir").(string),

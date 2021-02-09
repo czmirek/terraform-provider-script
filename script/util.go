@@ -38,10 +38,10 @@ func validateProgramAttr(v interface{}) error {
 	return nil
 }
 func l(msg string) {
-	log.Print("[TRACE] " + msg + "\r\n")
+	log.Printf("[TRACE] %s", msg)
 }
 func lf(v ...interface{}) {
-	log.Printf("[TRACE] %v\r\n", v)
+	log.Printf("[TRACE] %v", v)
 }
 func parseOutput(output string) *scriptModel {
 	model := &scriptModel{}

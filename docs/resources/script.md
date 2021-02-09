@@ -9,7 +9,7 @@ description: |-
 resource "script" "new" {
     create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
     read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
-    update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]
+    update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##CS##"]
     delete = ["pwsh", "${path.root}/delete.ps1", "##ID##"]
     target_state = ["pwsh", "${path.root}/target-state.ps1", "-NoLogo"]
     working_dir = path.root
@@ -25,7 +25,7 @@ resource "script" "new" {
 resource "script" "new" {
     create = ["pwsh", "${path.root}/create.ps1", "-NoLogo"]
     read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
-    update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]
+    update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##CS##"]
     delete = ["pwsh", "${path.root}/delete.ps1", "##ID##"]
     target_state = ["pwsh", "${path.root}/target-state.ps1", "-NoLogo"]
     working_dir = path.root
@@ -57,8 +57,8 @@ because terraform can detect the serialized JSON and show individual property/va
 
 Example: `target_state = ["pwsh", "${path.root}/target-state.ps1", "-NoLogo"]`
 - **update** (List of String) Command to run an update script.
-Placeholder `##ID##` is replaced with the resource id, `##RES##` by string resource itself.
-Example: `update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##RES##"]`
+Placeholder `##ID##` is replaced with the resource id, `##CS##` by string resource itself.
+Example: `update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##CS##"]`
 - **working_dir** (String) Working directory of the running scripts
 
 ### Optional

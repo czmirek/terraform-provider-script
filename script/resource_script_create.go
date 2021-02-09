@@ -11,7 +11,7 @@ import (
 // and saves the resource string into the current state
 func resourceOrderCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
-
+	l("SCRIPT: Running create script")
 	createOutput, diagReturn := runScript(&scriptOptions{
 		OpList:         d.Get("create").([]interface{}),
 		WorkingDir:     d.Get("working_dir").(string),
