@@ -14,6 +14,7 @@ resource "script" "new" {
     read = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
     update = ["pwsh", "${path.root}/update.ps1", "##ID##", "##CS##"]
     delete = ["pwsh", "${path.root}/delete.ps1", "##ID##"]
+    import = ["pwsh", "${path.root}/read.ps1", "##ID##", "-NoLogo"]
     target_state = ["pwsh", "${path.root}/target-state.ps1", "-NoLogo"]
     working_dir = path.root
 }

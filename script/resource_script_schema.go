@@ -11,6 +11,9 @@ func resourceScript() *schema.Resource {
 		UpdateContext: resourceOrderUpdate,
 		DeleteContext: resourceOrderDelete,
 		CustomizeDiff: resourceCustomDiff,
+		Importer: &schema.ResourceImporter{
+			StateContext: resourceOrderImport,
+		},
 		Description: "This provider provides a `script` resource which delegates the resource cycle completely to scripts that you provide.\n\n" +
 			"- Your target state is defined by a single string, it can be anything but I recommend to use a serialized JSON.\n" +
 			"- The provider excepts your scripts to work with a simple JSON structure:\n" +
@@ -55,6 +58,15 @@ func resourceScript() *schema.Resource {
 				Type:        schema.TypeList,
 				Description: "Command to run a delete script. Placeholder `##ID##` is replaced with the resource id. Example: `delete = [\"pwsh\", \"${path.root}/delete.ps1\", \"##ID##\"]`",
 				Required:    true,
+				Elem: &schema.Schema{
+					Type: schema.TypeString,
+				},
+			},
+			"import": {
+				Type: schema.TypeList,
+				Description: "Command to run an import script which can accept the ID of the resource and return the external state." +
+					"Placeholder ##ID## is replaced with the resource id. Example: `import = [\"pwsh\", \"${path.root}/import-my-resource.ps1\", \"##ID##\", \"-NoLogo\"]`" +
+					"The import is expected to write to output a JSON with an id and resource property, see the resource description",
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
 				},
